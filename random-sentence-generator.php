@@ -79,7 +79,7 @@ var verbs, nouns, adjectives, adverbs, preposition;
               var rand5 = Math.floor(Math.random() * 100);
               var rand6 = Math.floor(Math.random() * 100);
               var rand7 = Math.floor(Math.random() * 100);
-              var rand8 = Math.floor(Math.random() * 3)
+              var rand8 = Math.floor(Math.random() * 2)
               //                var randCol = [rand1,rand2,rand3,rand4,rand5];
               //                var i = randGen();
              
@@ -89,8 +89,10 @@ var verbs, nouns, adjectives, adverbs, preposition;
               var content = preposition2[rand1] + " the " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + ", we have " + verbs[rand4] + " " + nouns[rand1] + ", " + adverbs[rand1] + " " + verbs[rand1] + " " + preposition[rand2] + " " + adjectives[rand2] + " " + nouns[rand5] + " " + adjectives[rand3] + " " + adjectives[rand4] + " " + nouns[rand6] + ".";
              
               var content1 = gameQ[rand7];
-              var content2 = smashup[rand8];
-              var newcontent = "*Im The Start* " + content1 + " *Im The Middle* " + content + " *Im The End*";
+             
+              smashup = [content, content1];
+             
+              var newcontent = smashup[rand8];
              
              
              
