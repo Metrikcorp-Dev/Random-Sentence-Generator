@@ -1,5 +1,4 @@
-# Random-Sentence-Generator
- === Random Sentence Generator ===
+=== Random Sentence Generator ===
 Contributors: Metrikcorp
 Tags: metrikcorp, plugin tutorial
 Requires at least: 5.5
