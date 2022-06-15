@@ -1,4 +1,3 @@
-# Random-Sentence-Generator
 === Random Sentence Generator ===
 Contributors: Metrikcorp
 Tags: metrikcorp, plugin tutorial
@@ -15,7 +14,7 @@ A WordPress plugin to displays a random sentence.
 A WordPress plugin to displays a random sentence when a viewer clicks the button. 
 Add shortcode to display on any page or post, [RSG].
 
-This plugin has 500 different verbs, nouns, adjectives, adverbs, and prepositions to make its random generated sentence.  
+This plugin has 500 different verbs, nouns, adjectives, adverbs, prepositions, & 100 best video game quotes of all-time to make its random generated sentence.  
  
 == Installation ==
  
@@ -51,4 +50,4 @@ Simply deactivate and delete the plugin.
 
 = 1.0.1 = 
 * add new content 100 best video game quotes of all-time
-* add random pick to output
+* add random pick to output between 100 best video game quotes & 500 different word options for random sentences. 
