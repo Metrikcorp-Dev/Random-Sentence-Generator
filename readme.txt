@@ -48,6 +48,6 @@ Simply deactivate and delete the plugin.
 * add styling to design. 
 * updated readme.txt 
 
-= 1.0.1 =
-* add user input  
+= 1.0.1 = 
 * add new content 100 best video game quotes of all-time
+* add random pick to output
