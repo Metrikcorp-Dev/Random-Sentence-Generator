@@ -3,18 +3,18 @@ Contributors: Metrikcorp
 Tags: metrikcorp, plugin tutorial
 Requires at least: 5.5
 Tested up to: 6.0
-Stable tag: 1.0.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
 A WordPress plugin to displays a random sentence.  
  
 == Description ==
- 
-A WordPress plugin to displays a random sentence when a viewer clicks the button. 
-Add shortcode to display on any page or post, [RSG].
-
-This plugin has 500 different verbs, nouns, adjectives, adverbs, prepositions, & 100 best video game quotes of all-time to make its random generated sentence.  
+    Displays a random sentence when a viewer clicks the button.
+   
+    Add shortcode to display on any page or post, [RSG] This plugin has 500 different verbs, nouns, adjectives, adverbs, and prepositions to make its random generated sentence.
+   
+    Install database access for the plugin using shortcode [RSGDB]
  
 == Installation ==
  
@@ -25,29 +25,39 @@ This plugin has 500 different verbs, nouns, adjectives, adverbs, prepositions, &
 == Frequently Asked Questions ==
  
 = How do I use this plugin? =
-Add shortcode to display on any page or post, [RSG]
+1: Add shortcode to create Database Access [RSGDB]
+
+2: Add shortcode to display on any page or post, [RSG]
+
+
  
 Answer to the question
  
 = How to uninstall the plugin? =
  
-Simply deactivate and delete the plugin. 
+Simply deactivate and delete the plugin.
  
 == Screenshots ==
-1. Installing Plugin. 
+1. Installing Plugin.
 1. Activating Plugin.
 1. Adding Shortcode.
  
 == Changelog ==
 = 1.0.0 =
-* Plugin released. 
+* Plugin released.
 * Fixed issues with the display.
-* revised to have 500 different word options. 
+* revised to have 500 different word options.
 * add the shortcode for display on pages or posts.
 * add styling to align text.
-* add styling to design. 
-* updated readme.txt 
+* add styling to design.
+* updated readme.txt
 
-= 1.0.1 = 
+= 1.0.1 =
 * add new content 100 best video game quotes of all-time
-* add random pick to output between 100 best video game quotes & 500 different word options for random sentences. 
+* add a random pick to output
+
+= 1.1.1 =
+* add in DB creation for plugin data
+* add in storage for user input
+* add in the shortcode for DB creation
+* add in HTML form to collect user input,

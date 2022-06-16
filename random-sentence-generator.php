@@ -8,14 +8,14 @@
  * that starts the plugin.
  *
  * @link              https://michaelwimmenauer.com
- * @since             1.0.1
+ * @since             1.1.1
  * @package           Random_Sentence_Generator
  *
  * @wordpress-plugin
  * Plugin Name:       Random Sentence Generator
  * Plugin URI:        http://metrikcorp.com
- * Description:       Displays a random sentence when a viewer clicks the button. Add shortcode to display on any page or post, [RSG] This plugin has 500 different verbs, nouns, adjectives, adverbs, prepositions to make its random generated sentence.
- * Version:           1.0.1
+ * Description:       Displays a random sentence when a viewer clicks the button. Add shortcode to display on any page or post, [RSG] This plugin has 500 different verbs, nouns, adjectives, adverbs, prepositions to make its random generated sentence. Install database access for plugin using shortcode [RSGDB]
+ * Version:           1.1.1
  * Author:            Michael
  * Author URI:        https://michaelwimmenauer.com
  * License:           GPL-2.0+
@@ -24,7 +24,66 @@
  * Domain Path:       /languages
  */
  /* Environment: We're in functions.php or a PHP file in a plugin */
- 
+//db
+global $jal_db_version;
+$jal_db_version = '1.0';
+
+function jal_install() {
+global $wpdb;
+global $jal_db_version;
+
+$table_name = $wpdb->prefix . 'RSG_input_user';
+$charset_collate = $wpdb->get_charset_collate();
+
+$sql = "CREATE TABLE $table_name (
+id mediumint(9) NOT NULL AUTO_INCREMENT,
+time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+name tinytext NOT NULL,
+text text NOT NULL,
+url varchar(55) DEFAULT '' NOT NULL,
+PRIMARY KEY  (id)
+) $charset_collate;";
+
+require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+dbDelta( $sql );
+
+add_option( 'jal_db_version', $jal_db_version );
+}
+
+function jal_install_data() {
+global $wpdb;
+$welcome_name = 'Mr. WordPress';
+$welcome_text = 'Congratulations, you just completed the installation!';
+$table_name = $wpdb->prefix . 'RSG_input_user';
+$wpdb->insert(
+$table_name,
+array(
+'time' => current_time( 'mysql' ),
+'name' => $welcome_name,
+'text' => $welcome_text,
+)
+);
+}
+
+
+//function to add user input to page,
+function addContent(){
+    echo '<form method="GET">'; // printing form tag
+    echo '<input type="text" name="firstname">';
+    echo '<input type="submit" name="send_btn" value="Submit">';
+    echo '</form>';
+
+    if (isset($_GET['send_btn'])) { // checking is form was submitted  then accessing to value
+        $firstname = $_GET['firstname'];
+
+        echo "<p> You wrote: $firstname </p>";
+    }
+   
+}
+
+add_shortcode('addContent', 'addContent');
+
+//function to add RSG text to page
 function RSG_function() {
      return '
      <style>
@@ -105,29 +164,11 @@ var verbs, nouns, adjectives, adverbs, preposition;
         <h2 class="boxh"> Random Sentence Generator</h2>
         <p class="boxp"><button onclick="sentence()">Generate Sentence<i class="fa fa-refresh" aria-hidden="true"></i></button></p>
         <p class="boxp" id="sentence"></p>
-       
-       <h2>Submit a new word</h2>
-        <form id="form" onsubmit="return false;">
-            <input type="text" id="userInput">
-            <input class="button1" type="submit" onclick="getInputFromTextBox()">
-        </form>
-        <div id="result"></div>
-        <script>
-            function getInputFromTextBox() {
-               var input = document.getElementById("userInput").value;
-                // Check browser support
-                if (typeof(Storage) !== "undefined") {
-                    // Store
-                    localStorage.setItem("storedWord", input);
-                    // Retrieve
-                    document.getElementById("result").innerHTML = localStorage.getItem("storedWord");
-                } else {
-                    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-                }
-            }
-           
-        </script>
      </div>'
      ;}
 
+add_shortcode('RSGDB', 'jal_install');
+add_shortcode('RSGUI', 'jal_install_data');
 add_shortcode('RSG', 'RSG_function');
+register_activation_hook( __FILE__, 'jal_install' );
+register_activation_hook( __FILE__, 'jal_install_data' );
