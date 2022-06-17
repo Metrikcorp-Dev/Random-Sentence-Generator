@@ -17,7 +17,7 @@
 
  * @LINK              HTTPS://MICHAELWIMMENAUER.COM
 
- * @SINCE             2.0.0
+ * @SINCE             2.0.1
 
  * @PACKAGE           RANDOM_SENTENCE_GENERATOR
 
@@ -31,7 +31,7 @@
 
  * DESCRIPTION:       Displays a Random Sentence when a visitor clicks on a button. Add the shortcode [RSG] to any page or post to display. This plugin has 500 different Verbs, Nouns, Adjectives, Adverbs, and Prepositions to make randomly generated sentences, It also has 100 top gamer quotes that will randomly generate to alternat randomly between them.
 
- * VERSION:           2.0.0
+ * VERSION:           2.0.1
 
  * AUTHOR:            Michael W
 
@@ -222,44 +222,53 @@ var verbs, nouns, adjectives, adverbs, preposition;
 
 
 
-function wf_menus(){
+function rsg_menus(){
     add_menu_page('Random Sentence Generator','Random Sentence Generator',
-        'manage_options','random-sentence-generator-menu','wf_render_menu_page',
+        'manage_options','random-sentence-generator-dashboard','rsg_render_menu_page',
         'dashicons-portfolio');
-    add_submenu_page('random-sentence-generator-menu','Menu Settings','Setting',
-    'manage_options','wf-my-menu-settings','wf_render_settings_page');
+    add_submenu_page('random-sentence-generator-dashboard','Menu Settings','Setting',
+    'manage_options','random-sentence-generator-settings','rsg_render_settings_page');
    
-    add_submenu_page(null,'Edit Subscriber','Edit Subscribers',
-    'manage_options','wf-edit-subscriber','wf_render_edit_subscriber');
+    add_submenu_page(null,'Edit Sentence','Edit Sentence',
+    'manage_options','rsg-edit-sentence','rsg_render_edit_sentence');
 }
 
 //sub menu edit
 
-function wf_render_edit_subscriber(){
+function rsg_render_edit_sentence(){
     $id =  $_GET['id'];
     $o = ""; // output
     $message = "";
-    $email = wf_get_subscriber_by_id($id); // check out this function
+    $email = rsg_get_sentence_by_id($id); // check out this function
+    $navyes = "<a class='page-title-action' href='".menu_page_url('random-sentence-generator-dashboard',false)."'>Go to dashboard</a>
+    <a class='page-title-action' href='".menu_page_url('random-sentence-generator-settings',false)."'>Go to setting</a>
+    ";
+   
     $o .="
     <div class='wrap'>
-        <h1>Update this Subscriber</h1>";
+        <h1>Update Sentence </h1>
+        " . $navyes . "
+        <hr>
+        ";
     $o .="
-        <form method='post' action='".menu_page_url('wf-edit-subscriber',false)."&id=$id'><table class='form-table'>
+        <form method='post' action='".menu_page_url('rsg-edit-sentence',false)."&id=$id'><table class='form-table'>
         <tr>
             <th><label>Email</label></th>
-            <td><input name='wf_email' type='text' value='$email'/>
-            <input type='hidden' name='wf_id' value='$id'/></td>
+            <td><input name='rsg_email' type='text' value='$email'/>
+            <input type='hidden' name='rsg_id' value='$id'/></td>
         </tr>
         </table>
         <p class='submit'>
-        <input type='submit' name='wf-update-subscriber' id='submit' class='button button-primary' value='Save the form'></p>
+        <input type='submit' name='rsg-update-sentence' id='submit' class='button button-primary' value='Save the form'></p>
         </form>
         </div>";
+       
+       
     echo $o;
 }
-function wf_get_subscriber_by_id( $id ){
+function rsg_get_sentence_by_id( $id ){
     global $wpdb;
-    $sql = "SELECT * from wp_wf_subscribers WHERE sub_id=". $id;
+    $sql = "SELECT * from wp_rsg_sentence WHERE sub_id=". $id;
     $results = $wpdb->get_row($sql,ARRAY_A);
     return $results["email"];
 }
@@ -267,28 +276,28 @@ function wf_get_subscriber_by_id( $id ){
 //sub menu
 
 add_action('admin_menu', 'register_my_custom_submenu_page');
-register_activation_hook(__FILE__,'wf_add_option');
+register_activation_hook(__FILE__,'rsg_add_option');
 
 
-function wf_add_option(){
-    register_activation_hook(__FILE__,'wf_add_option'); // run on plugin activate
-    if( get_option('wf_plugin_options') === false ){
-        add_option('wf_plugin_options', [
+function rsg_add_option(){
+    register_activation_hook(__FILE__,'rsg_add_option'); // run on plugin activate
+    if( get_option('rsg_plugin_options') === false ){
+        add_option('rsg_plugin_options', [
             'api_code' => '9sLDw9QknN'
         ]);
     }
-    wf_create_subscribers_table(); // run this query
+    rsg_create_sentence_table(); // run this query
 }
-function wf_save_subscriber($email){
+function rsg_save_sentence($email){
     global $wpdb;
-    $wpdb->insert('wp_wf_subscribers',[
+    $wpdb->insert('wp_rsg_sentence',[
         'email' => $email
     ]);
 }
  
-function wf_get_list_subscribers(){
+function rsg_get_list_sentence(){
     global $wpdb;
-    $sql = "SELECT * from wp_wf_subscribers";
+    $sql = "SELECT * from wp_rsg_sentence";
     $results = $wpdb->get_results($sql,ARRAY_A);
     return $results;
 }
@@ -315,32 +324,35 @@ function my_custom_submenu_page_content() {
     echo '</div>';
 }
 
-function wf_render_settings_page(){
-    $api = get_option('wf_plugin_options')['api_code'];
-    if(isset($_POST['wf-api-key-form'])){
-    $new_api_key = sanitize_text_field($_POST['wf_api_key_option']);
+function rsg_render_settings_page(){
+    $api = get_option('rsg_plugin_options')['api_code'];
+    if(isset($_POST['rsg-api-key-form'])){
+    $new_api_key = sanitize_text_field($_POST['rsg_api_key_option']);
     if(!empty($new_api_key)){
-        update_option('wf_plugin_options',['api_code'=>$new_api_key]);
+        update_option('rsg_plugin_options',['api_code'=>$new_api_key]);
     }
     }
+    $navys = "<a class='page-title-action' href='".menu_page_url('random-sentence-generator-dashboard',false)."'>Go to dashboard</a>";
+   
     echo "
     <div class='wrap'>
-        <h1>My Menu Settings Page</h1>
-        <form method='post' action='".menu_page_url('wf-my-menu-settings',false)."'><table class='form-table'>
+        <h1>Random Sentence Generator Settings Page</h1>
+        " . $navys . "<hr>
+        <form method='post' action='".menu_page_url('random-sentence-generator-settings',false)."'><table class='form-table'>
         <tr>
             <th><label>Api Key</label></th>
-            <td><input name='wf_api_key_option' type='text' value='$api' title='Coming Soon!'/></td>
+            <td><input name='rsg_api_key_option' type='text' value='$api' title='Coming Soon!'/></td>
         </tr>
         </table>
         <p class='submit'>
-        <input type='submit' name='wf-api-key-form' id='submit' class='button button-primary' value='Save the form' title='Coming Soon!'></p>
+        <input type='submit' name='rsg-api-key-form' id='submit' class='button button-primary' value='Save the form' title='Coming Soon!'></p>
         </form>
         </div>";
 }
 
-function wf_create_subscribers_table(){
+function rsg_create_sentence_table(){
     global $wpdb;
-    $sub_table = 'CREATE TABLE IF NOT EXISTS `wp_wf_subscribers` (
+    $sub_table = 'CREATE TABLE IF NOT EXISTS `wp_rsg_sentence` (
   `sub_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(165) DEFAULT NULL,
   PRIMARY KEY (`sub_id`)
@@ -351,17 +363,20 @@ function wf_create_subscribers_table(){
 
 
 //main menu
-add_action('admin_menu', 'wf_menus');
-function wf_render_menu_page(){
-    wp_enqueue_style('load-my-styles',plugins_url( '/public/wfstyles.css', __FILE__ )
+add_action('admin_menu', 'rsg_menus');
+function rsg_render_menu_page(){
+    wp_enqueue_style('load-my-styles',plugins_url( '/public/rsgstyles.css', __FILE__ )
     ,array(),'1.0');
     $o = "";
+   
+     $navyd = "<a class='page-title-action' href='".menu_page_url('random-sentence-generator-settings',false)."'>Go to settings</a>";
+   
     $o .= "<div class='wrap'>
         <h1>Random Sentence Generator Dashboard</h1>
         <br>
-        <a class='' href='".menu_page_url('wf-my-menu-settings',false)."'><button>Go to settings</button></a>
+        <a class='' href='".menu_page_url('random-sentence-generator-settings',false)."'><button>Go to settings</button></a>
         <p>We can create content here</p>
-        <form method='post' action='".menu_page_url('random-sentence-generator-menu',false)."'><table class='form-table'>
+        <form method='post' action='".menu_page_url('random-sentence-generator-dashboard',false)."'><table class='form-table'>
         <tr>
     <th><label>Tutorial Name</label></th>
     <td><input name='tutorial_name' type='text'/></td>
@@ -372,28 +387,29 @@ function wf_render_menu_page(){
 </tr>
         </table>
         <p class='submit'>
-        <input type='submit' name='wf-menu-form' id='submit' class='button button-primary' value='Save the form'></p>
+        <input type='submit' name='rsg-menu-form' id='submit' class='button button-primary' value='Save the form'></p>
         </form>
         ";
         $o = "";
     $message = "";
-    if(isset($_POST['wf-menu-form'])){
+    if(isset($_POST['rsg-menu-form'])){
 
     }
-    $data = wf_get_list_subscribers();
+    $data = rsg_get_list_sentence();
    
-    wp_enqueue_script('hello-world-style', plugins_url( '/public/wfscript.js', __FILE__ ),
+    wp_enqueue_script('hello-world-style', plugins_url( '/public/rsgscript.js', __FILE__ ),
     array( 'jquery' ), '1.0');
     $A = "";
-    if(isset($_POST['wf_subscription_form'])){
-        $email = isset($_POST['wf_email_form_value']) ? $_POST['wf_email_form_value'] : null;
+    if(isset($_POST['rsg_sentence_form'])){
+        $email = isset($_POST['rsg_email_form_value']) ? $_POST['rsg_email_form_value'] : null;
         if($email){
-            wf_save_subscriber($email); // save the email
+            rsg_save_sentence($email); // save the email
             $A .= "<p style='color:green;'>You submitted: $email</p>";
         }
     }
     $A.= "
     <h1 class='boxh'> Random Sentence Generator Dashboard</h1>
+    " . $navyd . "
     <hr>
     <h2>How To Use RSG?</h2>
     <p>Step 1: add the shortcode [RSG] to any page or post.</p>
@@ -402,10 +418,10 @@ function wf_render_menu_page(){
     <h2 class='boxh'> Random Sentence Generator User Addon</h2>
     <form method='post'>
         <label>Enter your sentence here</label>
-        <input type='text' name='wf_email_form_value' placeholder='Enter sentence' title='Coming Soon!'/><br>
+        <input type='text' name='rsg_email_form_value' placeholder='Enter sentence' title='Coming Soon!'/><br>
         <input class='button1' type='submit' value='Submit' title='Add you own custom sentence!'/>
         <input class='button1' id='clear-button' type='button' value='Clear' title='Coming Soon!'/>
-        <input type='hidden' name='wf_subscription_form' value='dasfasdf'/>
+        <input type='hidden' name='rsg_sentence_form' value='dasfasdf'/>
     </form><hr>";
     echo $A;
    
@@ -419,40 +435,40 @@ function wf_render_menu_page(){
         $o .= "<tr>";
         $o .="<td>".$row["sub_id"]."</td>";
         $o .="<td>".$row["email"]."</td>";
-        $o .="<td><a class='edit' href='".menu_page_url('wf-edit-subscriber',false)."&id=".$row["sub_id"]."'>Edit</a>
-                | <form style='display: inline' action='".menu_page_url('random-sentence-generator-menu',false)."' method='post' id='delete".$row['sub_id']."'>
+        $o .="<td><a class='edit' href='".menu_page_url('rsg-edit-sentence',false)."&id=".$row["sub_id"]."'>Edit</a>
+                | <form style='display: inline' action='".menu_page_url('random-sentence-generator-dashboard',false)."' method='post' id='delete".$row['sub_id']."'>
 <a href='javascript:void()' onclick='document.getElementById(\"delete".$row["sub_id"]."\").submit()' class='trash'>Delete</a>
-<input type='hidden' name='wf_subscriber' value='".$row["sub_id"]."'/>
+<input type='hidden' name='rsg_sentence' value='".$row["sub_id"]."'/>
 </form></td>";
         $o .= "</tr>";
-        if(isset($_POST['wf_subscriber'])){
-    $id = $_POST['wf_subscriber'];
-    wf_delete_subscriber_by_id($id); // take note of this function
+        if(isset($_POST['rsg_sentence'])){
+    $id = $_POST['rsg_sentence'];
+    rsg_delete_sentence_by_id($id); // take note of this function
     echo '<div id="message" class="updated notice is-dismissible"><p>The subscriber has been deleted</p></div>';
 }
     }
-    if(isset($_POST['wf-update-subscriber'])){
-    $newEmail = $_POST["wf_email"];
-    wf_update_subscriber_by_id($id, $newEmail); // check out this function
-    $email = wf_get_subscriber_by_id($id);
+    if(isset($_POST['rsg-update-sentence'])){
+    $newEmail = $_POST["rsg_email"];
+    rsg_update_sentence_by_id($id, $newEmail); // check out this function
+    $email = rsg_get_sentence_by_id($id);
     $message = '<div id="message" class="updated notice is-dismissible"><p>The email has been updated</p></div>';
 }
     echo $o;
-    if(isset($_POST['wf-menu-form'])){
+    if(isset($_POST['rsg-menu-form'])){
     $name = isset($_POST['tutorial_name']) ? $_POST["tutorial_name"] : null;
     $details = isset($_POST['tutorial_description']) ? $_POST["tutorial_description"] : null;
     $message ="<div style='padding: 5px; border: 1px solid red;'>You submitted a tutorial with name: $name and details: $details</div>";}
    
 }
 
-function wf_delete_subscriber_by_id( $id ){
+function rsg_delete_sentence_by_id( $id ){
     global $wpdb;
-    $wpdb->query("DELETE FROM wp_wf_subscribers WHERE sub_id=". $id);
+    $wpdb->query("DELETE FROM wp_rsg_sentence WHERE sub_id=". $id);
 }
 
-function wf_update_subscriber_by_id($id, $email){
+function rsg_update_sentence_by_id($id, $email){
     global $wpdb;
-    $wpdb->update('wp_wf_subscribers',[
+    $wpdb->update('wp_rsg_sentence',[
         'email' => $email
     ],array('sub_id'=>$id));
 }

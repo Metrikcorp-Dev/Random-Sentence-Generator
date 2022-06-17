@@ -34,13 +34,6 @@ Tested on:
     3: Twenty Twenty
     4: Phlox
 
-
-== Plugins ==
-    1: Elementor Pro
-    2: Elementor
-    3: Gutenberg
-
-
 == Installation ==
 
  
@@ -131,3 +124,7 @@ Simply deactivate and delete the plugin.
 * add the ability to edit/delete user input
 * add style to user input display on RSG dashboard
 * add clear form button
+
+= 2.0.1 =
+* cleaned up URL's
+* add intenal navigation on dashboard / settings pages for RSG
