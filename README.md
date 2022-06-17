@@ -14,25 +14,36 @@ License: GPLv2 or later
 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+ 
 
+A WordPress plugin to displays a random sentence.  
 
-A WordPress plugin to displays a random sentence.
-
-
+ 
 
 == Description ==
 
-    Displays a random sentence when a viewer clicks the button.
+    Displays a Random Sentence when a visitor clicks on a button.
+    Add the shortcode [RSG] to any page or post to display.
+    This plugin has 500 different Verbs, Nouns, Adjectives, Adverbs, and Prepositions to make randomly generated sentences.
+    It also has 100 top gamer quotes that will randomly generate to alternat randomly between them.
+
+Tested on:
+== Themes ==    
+    1: Astra Pro
+    2: Astra
+    3: Twenty Twenty
+    4: Phlox
 
 
-
-    Add shortcode to display on any page or post, [RSG] This plugin has 500 different verbs, nouns, adjectives, adverbs, prepositions to make its random generated sentence.
-
+== Plugins ==
+    1: Elementor Pro
+    2: Elementor
+    3: Gutenberg
 
 
 == Installation ==
 
-
+ 
 
 1. Upload the plugin folder to your /wp-content/plugins/ folder.
 
@@ -40,29 +51,29 @@ A WordPress plugin to displays a random sentence.
 
 3. Add [RSG] to any page or post.
 
-
+ 
 
 == Frequently Asked Questions ==
 
-
+ 
 
 = How do I use this plugin? =
 
 Add shortcode to display on any page or post, [RSG]
 
-
+ 
 
 Answer to the question
 
-
+ 
 
 = How to uninstall the plugin? =
 
-
+ 
 
 Simply deactivate and delete the plugin.
 
-
+ 
 
 == Screenshots ==
 
@@ -72,7 +83,7 @@ Simply deactivate and delete the plugin.
 
 1. Adding Shortcode.
 
-
+ 
 
 == Changelog ==
 
@@ -98,25 +109,25 @@ Simply deactivate and delete the plugin.
 
 * add new content 100 best video game quotes of all-time
 
-* add random pick to output
+* add a random pick to output
 
 
 
 = 1.1.1 =
 
-* add admin panel to wordpress dashboard
-* add user input to front UI
+* add admin panel too WordPress dashboard
+* add user input to the front UI
 
 
 
 = 2.0.0 =
 
 * moved user input into RSG dashboard
-* add settings page to wordpress dashboard in sub-menu for api key
-* add db for user input
+* add settings page to WordPress dashboard in sub-menu for an API key
+* add DB for user input
 * add edit page for user input
-* add api in settings
+* add API in settings
 * add user input to display in RSG dashboard
-* add ability to edit / delete user input
+* add the ability to edit/delete user input
 * add style to user input display on RSG dashboard
 * add clear form button

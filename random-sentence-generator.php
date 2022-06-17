@@ -1,4 +1,4 @@
-?php
+<?php
 /**
 
  * THE PLUGIN BOOTSTRAP FILE
@@ -25,15 +25,15 @@
 
  * @WORDPRESS-PLUGIN
 
- * PLUGIN NAME:       RANDOM SENTENCE GENERATOR
+ * PLUGIN NAME:       Random Sentence Generator
 
  * PLUGIN URI:        HTTP://METRIKCORP.COM
 
- * DESCRIPTION:       DISPLAYS A RANDOM SENTENCE WHEN A VIEWER CLICKS THE BUTTON. ADD SHORTCODE TO DISPLAY ON ANY PAGE OR POST, [RSG] THIS PLUGIN HAS 500 DIFFERENT VERBS, NOUNS, ADJECTIVES, ADVERBS, PREPOSITIONS TO MAKE ITS RANDOM GENERATED SENTENCE.
+ * DESCRIPTION:       Displays a Random Sentence when a visitor clicks on a button. Add the shortcode [RSG] to any page or post to display. This plugin has 500 different Verbs, Nouns, Adjectives, Adverbs, and Prepositions to make randomly generated sentences, It also has 100 top gamer quotes that will randomly generate to alternat randomly between them.
 
  * VERSION:           2.0.0
 
- * AUTHOR:            MICHAEL
+ * AUTHOR:            Michael W
 
  * AUTHOR URI:        HTTPS://MICHAELWIMMENAUER.COM
 
@@ -41,7 +41,7 @@
 
  * LICENSE URI:       HTTP://WWW.GNU.ORG/LICENSES/GPL-2.0.TXT
 
- * TEXT DOMAIN:       RANDOM-SENTENCE-GENERATOR
+ * TEXT DOMAIN:       Random-Sentence-Generator
 
  * DOMAIN PATH:       /LANGUAGES
 
@@ -56,13 +56,12 @@ if ( ! defined( 'WPINC' ) ) {
 add_shortcode( 'RSG','RSG_function');
 
 function RSG_function(){
-
-
+    $p ='';
+   
      $p.='
-
      <style>
 
-        #box{
+        #box{  
 
         width:auto;
 
@@ -170,7 +169,7 @@ var verbs, nouns, adjectives, adverbs, preposition;
 
               //                var i = randGen();
 
-
+             
 
               /*
 
@@ -180,23 +179,23 @@ var verbs, nouns, adjectives, adverbs, preposition;
 
               var content = preposition2[rand1] + " the " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + ", we have " + verbs[rand4] + " " + nouns[rand1] + ", " + adverbs[rand1] + " " + verbs[rand1] + " " + preposition[rand2] + " " + adjectives[rand2] + " " + nouns[rand5] + " " + adjectives[rand3] + " " + adjectives[rand4] + " " + nouns[rand6] + ".";
 
-
+             
 
               var content1 = gameQ[rand7];
 
-
+             
 
               smashup = [content, content1];
 
-
+             
 
               var newcontent = smashup[rand8];
 
+             
 
+             
 
-
-
-
+             
 
 
 
@@ -224,13 +223,12 @@ var verbs, nouns, adjectives, adverbs, preposition;
 
 
 function wf_menus(){
-    add_menu_page('RANDOM SENTENCE GENERATOR','RANDOM SENTENCE GENERATOR',
-        'manage_options','wf-my-menu','wf_render_menu_page',
+    add_menu_page('Random Sentence Generator','Random Sentence Generator',
+        'manage_options','random-sentence-generator-menu','wf_render_menu_page',
         'dashicons-portfolio');
-
-    add_submenu_page('wf-my-menu','Menu Settings','Setting',
+    add_submenu_page('random-sentence-generator-menu','Menu Settings','Setting',
     'manage_options','wf-my-menu-settings','wf_render_settings_page');
-
+   
     add_submenu_page(null,'Edit Subscriber','Edit Subscribers',
     'manage_options','wf-edit-subscriber','wf_render_edit_subscriber');
 }
@@ -287,20 +285,20 @@ function wf_save_subscriber($email){
         'email' => $email
     ]);
 }
-
+ 
 function wf_get_list_subscribers(){
     global $wpdb;
     $sql = "SELECT * from wp_wf_subscribers";
     $results = $wpdb->get_results($sql,ARRAY_A);
     return $results;
 }
+ 
+ 
 
-
-
-
-
-
-
+ 
+ 
+ 
+ 
 function register_my_custom_submenu_page() {
     add_submenu_page(
         'tools.php',
@@ -310,7 +308,7 @@ function register_my_custom_submenu_page() {
         'my-custom-submenu-page',
         'my_custom_submenu_page_content' );
 }
-
+ 
 function my_custom_submenu_page_content() {
     echo '<div class="wrap">';
         echo '<h2>Page Title</h2>';
@@ -331,11 +329,11 @@ function wf_render_settings_page(){
         <form method='post' action='".menu_page_url('wf-my-menu-settings',false)."'><table class='form-table'>
         <tr>
             <th><label>Api Key</label></th>
-            <td><input name='wf_api_key_option' type='text' value='$api'/></td>
+            <td><input name='wf_api_key_option' type='text' value='$api' title='Coming Soon!'/></td>
         </tr>
         </table>
         <p class='submit'>
-        <input type='submit' name='wf-api-key-form' id='submit' class='button button-primary' value='Save the form'></p>
+        <input type='submit' name='wf-api-key-form' id='submit' class='button button-primary' value='Save the form' title='Coming Soon!'></p>
         </form>
         </div>";
 }
@@ -363,7 +361,7 @@ function wf_render_menu_page(){
         <br>
         <a class='' href='".menu_page_url('wf-my-menu-settings',false)."'><button>Go to settings</button></a>
         <p>We can create content here</p>
-        <form method='post' action='".menu_page_url('wf-my-menu',false)."'><table class='form-table'>
+        <form method='post' action='".menu_page_url('random-sentence-generator-menu',false)."'><table class='form-table'>
         <tr>
     <th><label>Tutorial Name</label></th>
     <td><input name='tutorial_name' type='text'/></td>
@@ -383,7 +381,7 @@ function wf_render_menu_page(){
 
     }
     $data = wf_get_list_subscribers();
-
+   
     wp_enqueue_script('hello-world-style', plugins_url( '/public/wfscript.js', __FILE__ ),
     array( 'jquery' ), '1.0');
     $A = "";
@@ -397,16 +395,20 @@ function wf_render_menu_page(){
     $A.= "
     <h1 class='boxh'> Random Sentence Generator Dashboard</h1>
     <hr>
+    <h2>How To Use RSG?</h2>
+    <p>Step 1: add the shortcode [RSG] to any page or post.</p>
+    <p>Thats it! Go check out the live page or post to see RSG in action!</p>
+    <hr>
     <h2 class='boxh'> Random Sentence Generator User Addon</h2>
     <form method='post'>
         <label>Enter your sentence here</label>
-        <input type='text' name='wf_email_form_value' placeholder='Enter sentence'/><br>
-        <input class='button1' type='submit' value='Submit'/>
-        <input class='button1' id='clear-button' type='button' value='Clear'/>
+        <input type='text' name='wf_email_form_value' placeholder='Enter sentence' title='Coming Soon!'/><br>
+        <input class='button1' type='submit' value='Submit' title='Add you own custom sentence!'/>
+        <input class='button1' id='clear-button' type='button' value='Clear' title='Coming Soon!'/>
         <input type='hidden' name='wf_subscription_form' value='dasfasdf'/>
     </form><hr>";
     echo $A;
-
+   
     $o .= "<div class='wrap'>
         <h2>List of user added sentences</h2>
         <p>Showing a list of user added sentences</p>
@@ -418,7 +420,7 @@ function wf_render_menu_page(){
         $o .="<td>".$row["sub_id"]."</td>";
         $o .="<td>".$row["email"]."</td>";
         $o .="<td><a class='edit' href='".menu_page_url('wf-edit-subscriber',false)."&id=".$row["sub_id"]."'>Edit</a>
-                | <form style='display: inline' action='".menu_page_url('wf-my-menu',false)."' method='post' id='delete".$row['sub_id']."'>
+                | <form style='display: inline' action='".menu_page_url('random-sentence-generator-menu',false)."' method='post' id='delete".$row['sub_id']."'>
 <a href='javascript:void()' onclick='document.getElementById(\"delete".$row["sub_id"]."\").submit()' class='trash'>Delete</a>
 <input type='hidden' name='wf_subscriber' value='".$row["sub_id"]."'/>
 </form></td>";
@@ -440,7 +442,7 @@ function wf_render_menu_page(){
     $name = isset($_POST['tutorial_name']) ? $_POST["tutorial_name"] : null;
     $details = isset($_POST['tutorial_description']) ? $_POST["tutorial_description"] : null;
     $message ="<div style='padding: 5px; border: 1px solid red;'>You submitted a tutorial with name: $name and details: $details</div>";}
-
+   
 }
 
 function wf_delete_subscriber_by_id( $id ){
